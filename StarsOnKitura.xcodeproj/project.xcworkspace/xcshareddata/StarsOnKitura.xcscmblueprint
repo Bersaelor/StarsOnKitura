@@ -1,0 +1,114 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "8C0A1303D4CA3229B99DFD7B29F91CCC15D2D560",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "92AF87893551AD3F2DEE78BEF3E924B9C5659E09" : 9223372036854775807,
+    "D591987028BFCE350CA11D7DA7F1AE9C4373C207" : 9223372036854775807,
+    "3DA8097D366B6AFDAEA91946C35253AA1EBC780B" : 9223372036854775807,
+    "8C0A1303D4CA3229B99DFD7B29F91CCC15D2D560" : 9223372036854775807,
+    "E3472B155FC961329A2EA7BFAD3AFAE6EFBD63E5" : 9223372036854775807,
+    "40635794C1929E96A4709153927459486D34FA7B" : 9223372036854775807,
+    "A6030AE2A9D46A1E86216CDDF6B9EED79741ABA1" : 9223372036854775807,
+    "43C021D2F0E746BBB29CA4E06229F111196D4871" : 9223372036854775807,
+    "77528AA6C8B451D66547916CA3CB970C85CBD7B4" : 9223372036854775807,
+    "405518DB3A80CDCDA7CF9D6FA0E654FB5DD5886B" : 9223372036854775807,
+    "85E996FB125657C20E42A299A76F925867A7A6E4" : 9223372036854775807,
+    "1A81AC7E588BE86E760603555BCE76FB0C611997" : 9223372036854775807,
+    "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : 9223372036854775807,
+    "43425688648679ECEC3105C3812E3C82D04FD563" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C6E10FB4-C88A-4EE5-83FC-8291E923FC06",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "92AF87893551AD3F2DEE78BEF3E924B9C5659E09" : "StarsOnKitura\/.build\/checkouts\/HeliumLogger.git-2106793442615829935\/",
+    "D591987028BFCE350CA11D7DA7F1AE9C4373C207" : "StarsOnKitura\/.build\/checkouts\/Spectre.git--7655155069707042687\/",
+    "3DA8097D366B6AFDAEA91946C35253AA1EBC780B" : "StarsOnKitura\/.build\/checkouts\/Stencil--9185492005012625299\/",
+    "8C0A1303D4CA3229B99DFD7B29F91CCC15D2D560" : "StarsOnKitura\/",
+    "E3472B155FC961329A2EA7BFAD3AFAE6EFBD63E5" : "StarsOnKitura\/.build\/checkouts\/PathKit.git--1865447967743163058\/",
+    "40635794C1929E96A4709153927459486D34FA7B" : "StarsOnKitura\/.build\/checkouts\/Kitura-net.git--7410958935072501107\/",
+    "A6030AE2A9D46A1E86216CDDF6B9EED79741ABA1" : "StarsOnKitura\/.build\/checkouts\/Kitura-StencilTemplateEngine.git--2176492381134715142\/",
+    "43C021D2F0E746BBB29CA4E06229F111196D4871" : "StarsOnKitura\/.build\/checkouts\/BlueSocket.git-3162807777605905816\/",
+    "77528AA6C8B451D66547916CA3CB970C85CBD7B4" : "StarsOnKitura\/.build\/checkouts\/BlueSSLService.git--6577639804771281610\/",
+    "405518DB3A80CDCDA7CF9D6FA0E654FB5DD5886B" : "StarsOnKitura\/.build\/checkouts\/KDTree-7016210474910239979\/",
+    "85E996FB125657C20E42A299A76F925867A7A6E4" : "StarsOnKitura\/.build\/checkouts\/LoggerAPI.git--6449715459278086880\/",
+    "1A81AC7E588BE86E760603555BCE76FB0C611997" : "StarsOnKitura\/.build\/checkouts\/Kitura-TemplateEngine.git--5059963620657797085\/",
+    "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : "StarsOnKitura\/.build\/checkouts\/SwiftyJSON.git--6955445084174387031\/",
+    "43425688648679ECEC3105C3812E3C82D04FD563" : "StarsOnKitura\/.build\/checkouts\/Kitura.git-6522211175291160341\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "StarsOnKitura",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "StarsOnKitura.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/Kitura-TemplateEngine.git--5059963620657797085",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1A81AC7E588BE86E760603555BCE76FB0C611997"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/Stencil--9185492005012625299",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3DA8097D366B6AFDAEA91946C35253AA1EBC780B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/KDTree-7016210474910239979",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "405518DB3A80CDCDA7CF9D6FA0E654FB5DD5886B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/Kitura-net.git--7410958935072501107",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "40635794C1929E96A4709153927459486D34FA7B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/Kitura.git-6522211175291160341",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "43425688648679ECEC3105C3812E3C82D04FD563"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/BlueSocket.git-3162807777605905816",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "43C021D2F0E746BBB29CA4E06229F111196D4871"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/BlueSSLService.git--6577639804771281610",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "77528AA6C8B451D66547916CA3CB970C85CBD7B4"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/LoggerAPI.git--6449715459278086880",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "85E996FB125657C20E42A299A76F925867A7A6E4"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Bersaelor\/StarsOnKitura.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8C0A1303D4CA3229B99DFD7B29F91CCC15D2D560"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/HeliumLogger.git-2106793442615829935",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "92AF87893551AD3F2DEE78BEF3E924B9C5659E09"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/Kitura-StencilTemplateEngine.git--2176492381134715142",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A6030AE2A9D46A1E86216CDDF6B9EED79741ABA1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/SwiftyJSON.git--6955445084174387031",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/Spectre.git--7655155069707042687",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D591987028BFCE350CA11D7DA7F1AE9C4373C207"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "\/Users\/konrad\/StarsOnKitura\/.build\/repositories\/PathKit.git--1865447967743163058",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E3472B155FC961329A2EA7BFAD3AFAE6EFBD63E5"
+    }
+  ]
+}

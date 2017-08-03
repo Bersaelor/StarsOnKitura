@@ -20,7 +20,7 @@ class StarHelper: NSObject {
         var startLoading = Date()
         
         guard let fileHandle = fopen(StarHelper.csvFilePath, "r") else {
-            Log.error("Couldn't find hygdata_v3 in bundle")
+            Log.error("Couldn't find hygdata_v3 in bundle for file \(StarHelper.csvFilePath)")
             completion(nil)
             return }
         defer { fclose(fileHandle) }
@@ -37,33 +37,8 @@ class StarHelper: NSObject {
         completion(starTree)
     }
     
-    static func loadForwardStars(stars: KDTree<Star>, currentCenter: CGPoint, radii: CGSize, completion: @escaping ([Star]) -> Void) {
-        DispatchQueue.global(qos: .background).async {
-            let startRangeSearch = Date()
-            
-            var starsVisible = stars.elementsIn([
-                (Double(currentCenter.x - radii.width), Double(currentCenter.x + radii.width)),
-                (Double(currentCenter.y - radii.height), Double(currentCenter.y + radii.height))])
-            
-            //add the points on the other side of the y-axis in case part of the screen is below
-            if currentCenter.x < radii.width {
-                let leftIntervals: [(Double, Double)] = [
-                    (Double( 24.0 + currentCenter.x - radii.width), Double(24.0 + currentCenter.x + radii.width)),
-                    (Double(currentCenter.y - radii.height), Double(currentCenter.y + radii.height))]
-                starsVisible += stars.elementsIn(leftIntervals).map({ (star: Star) -> Star in
-                    return star.starMoved(ascension: -24.0, declination: 0.0)
-                })
-            }
-            Log.verbose("Finished RangeSearch with \(starsVisible.count) stars, after \(Date().timeIntervalSince(startRangeSearch))s")
-            
-            DispatchQueue.main.async {
-                completion(starsVisible)
-            }
-        }
-    }
-    
-    static func nearestStar(to point: CGPoint, stars: KDTree<Star>) -> Star? {
-        let searchStar = Star(ascension: Float(point.x), declination: Float(point.y))
+    static func nearestStar(to ascension: Float, declination: Float, stars: KDTree<Star>) -> Star? {
+        let searchStar = Star(ascension: ascension, declination: declination)
         
         let startNN = Date()
         var nearestStar = stars.nearest(toElement: searchStar)

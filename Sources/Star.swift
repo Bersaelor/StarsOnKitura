@@ -29,6 +29,31 @@ struct StarData {
     let colorIndex: Float?
 }
 
+extension Star {
+    public var dataDictionary: [String: Any] {
+        guard let data = self.starData?.value else {
+            Log.error("Should have starData for \(self.dbID)")
+            return ["dbID": dbID]
+        }
+        return [
+            "dbID": dbID,
+            "right_ascension": right_ascension,
+            "declination": declination,
+            "hip_id": data.hip_id as Any,
+            "hd_id": data.hd_id as Any,
+            "hr_id": data.hr_id as Any,
+            "gl_id": data.gl_id as Any,
+            "bayer_flamstedt": data.bayer_flamstedt as Any,
+            "properName": data.properName as Any,
+            "rv": data.rv as Any,
+            "mag": data.mag,
+            "absmag": data.absmag,
+            "spectralType": data.spectralType as Any,
+            "colorIndex": data.colorIndex as Any
+        ]
+    }
+}
+
 struct Star {
     let dbID: Int32
     let right_ascension: Float

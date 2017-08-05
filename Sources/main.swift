@@ -1,15 +1,17 @@
 import Foundation
 import Kitura
+import KituraStencil
 import KDTree
 import Dispatch
 import HeliumLogger
 import LoggerAPI
-import SwiftyJSON
 
 // Initialize HeliumLogger
 HeliumLogger.use()
 
 // Mark: Load the Stars!
+// --------------
+
 var starTree: KDTree<Star>?
 let startLoading = Date()
 DispatchQueue.global(qos: .background).async { _ in
@@ -21,19 +23,32 @@ DispatchQueue.global(qos: .background).async { _ in
     }
 }
 
-// Mark: Respond with the Stars!
-
-// Create a new router
+// MARK: routing
+// --------------
 let router = Router()
 
+router.add(templateEngine: StencilTemplateEngine())
+
+router.all("/", middleware: StaticFileServer(path: "./static"))
+
 // Handle HTTP GET requests to /
+
+// main page with sample links
 router.get("/") { request, response, next in
     defer { next() }
+    
+    response.headers["Content-Type"] = "text/html; charset=utf-8"
 
-    response.send("Hello, World!")
+    let context = [
+        "links": [
+            ["desc": "Nearest Star", "url": "./star?ascension=14.2&declination=19.2"],
+            ["desc": "Nearest Stars", "url": "./nearestStars?number=6&ascension=20.5&declination=45.3"],
+            ["desc": "Stars in Area", "url": "./starsAround?ascension=15.2&declination=3.0&radiusX=1.4&radiusY=2&maxMag=4"]
+        ]
+    ]
+    try response.render("main.stencil", context: context).end()
 }
 
-// Handle HTTP GET requests to /
 router.get("/star") { request, response, next in
     defer { next() }
 
@@ -85,13 +100,15 @@ router.get("/starsAround") { request, response, next in
         return
     }
     
-    if let ascensionString = request.queryParameters["ascension"], let ascension = Float(ascensionString),
-        let declinationString = request.queryParameters["declination"], let declination = Float(declinationString),
-        let radiusXString = request.queryParameters["radiusX"], let radiusX = Float(radiusXString),
-        let radiusYString = request.queryParameters["radiusY"], let radiusY = Float(radiusYString)
+    if let ascension = request.queryParameters["ascension"].flatMap({ Float($0) }),
+        let declination = request.queryParameters["declination"].flatMap({ Float($0) }),
+        let radiusX = request.queryParameters["radiusX"].flatMap({ Float($0) }),
+        let radiusY = request.queryParameters["radiusY"].flatMap({ Float($0) })
     {
+        let maxMag = request.queryParameters["maxMag"].flatMap( { Double($0) })
         let stars = StarHelper.stars(from: starTree, around: ascension, declination: declination,
-                                     radiusAs: radiusX, radiusDec: radiusY)
+                                     radiusAs: radiusX, radiusDec: radiusY, maxMag: maxMag)
+
         response.send(json: stars.map { $0.dataDictionary } )
     } else {
         response.send("Wrongly formatted ascension, declination, radiusX or radiusY query parameters")

@@ -79,7 +79,9 @@ class StarHelper: NSObject {
     }
     
     
-    static func stars(from stars: KDTree<Star>, around ascension: Float, declination: Float, radiusAs: Float, radiusDec: Float) -> [Star] {
+    static func stars(from stars: KDTree<Star>, around ascension: Float,
+                      declination: Float, radiusAs: Float, radiusDec: Float, maxMag: Double?) -> [Star]
+    {
         let startRangeSearch = Date()
         
         var starsVisible = stars.elementsIn([
@@ -95,8 +97,12 @@ class StarHelper: NSObject {
                 return star.starMoved(ascension: -24.0, declination: 0.0)
             })
         }
+        if let maxMag = maxMag {
+            starsVisible = starsVisible.filter { (star) -> Bool in
+                return star.starData?.value.mag ?? Double.infinity < maxMag
+            }
+        }
         Log.verbose("Finished RangeSearch with \(starsVisible.count) stars, after \(Date().timeIntervalSince(startRangeSearch))s")
-        
         return starsVisible
     }
 }

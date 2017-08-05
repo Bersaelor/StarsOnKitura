@@ -1,0 +1,19 @@
+{% extends "base.stencil" %}
+
+
+{% block content %}
+<p class="largeEmpoji" align="center"> 🌌 </p>
+<H3 align="center"> on Kitura </H3>
+
+<H4> Examples </H4>
+<p><ul>
+    {% for link in links %}
+<li> <a href="{{ link.url }}"> {{ link.desc }} </a> </li>
+    {% endfor %}
+</ul></p>
+
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

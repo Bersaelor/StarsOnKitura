@@ -444,6 +444,7 @@
 
 /* Begin PBXFileReference section */
 		74AD22FE1F33ABF600E343A0 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
+		74AD22FF1F361FB300E343A0 /* Views */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Views; sourceTree = "<group>"; };
 		OBJ_10 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		OBJ_100 /* ResponseHeadersSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHeadersSetter.swift; sourceTree = "<group>"; };
 		OBJ_101 /* StaticFileServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticFileServer.swift; sourceTree = "<group>"; };
@@ -1064,6 +1065,7 @@
 			children = (
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
+				74AD22FF1F361FB300E343A0 /* Views */,
 				74AD22FE1F33ABF600E343A0 /* Resources */,
 				OBJ_14 /* Tests */,
 				OBJ_15 /* Dependencies */,

@@ -13,7 +13,7 @@ import LoggerAPI
 class StarHelper: NSObject {
     
     fileprivate static let csvFilePath: String = {
-        return String.rootProjectPath + "/Resources/hygdata_v3.csv"
+        return String.getAbsolutePath(for: "./Resources/hygdata_v3.csv")
     }()
 
     static func loadCSVData(completion: (KDTree<Star>?) -> Void) {

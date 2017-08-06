@@ -1,0 +1,12 @@
+.build/*
+Packages/*
+.travis.yml
+docker-compose.yml
+Dockerfile
+StarsOnKitura.xcodeproj/project.xcworkspace/xcuserdata/
+StarsOnKitura.xcodeproj/xcuserdata/
+StarsOnKitura.xcodeproj/
+Readme.md
+debugExecuteOnce.sh
+.git/*
+

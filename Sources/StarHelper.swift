@@ -80,19 +80,19 @@ class StarHelper: NSObject {
     
     
     static func stars(from stars: KDTree<Star>, around ascension: Float,
-                      declination: Float, radiusAs: Float, radiusDec: Float, maxMag: Double?) -> [Star]
+                      declination: Float, deltaAsc: Float, deltaDec: Float, maxMag: Double?) -> [Star]
     {
         let startRangeSearch = Date()
         
         var starsVisible = stars.elementsIn([
-            (Double(ascension - radiusAs), Double(ascension + radiusAs)),
-            (Double(declination - radiusDec), Double(declination + radiusDec))])
+            (Double(ascension - deltaAsc), Double(ascension + deltaAsc)),
+            (Double(declination - deltaDec), Double(declination + deltaDec))])
         
         //add the points on the other side of the y-axis in case part of the screen is below
-        if ascension < radiusAs {
+        if ascension < deltaAsc {
             let leftIntervals: [(Double, Double)] = [
-                (Double( 24.0 + ascension - radiusAs), Double(24.0 + ascension + radiusAs)),
-                (Double(declination - radiusDec), Double(declination + radiusDec))]
+                (Double( 24.0 + ascension - deltaAsc), Double(24.0 + ascension + deltaAsc)),
+                (Double(declination - deltaDec), Double(declination + deltaDec))]
             starsVisible += stars.elementsIn(leftIntervals).map({ (star: Star) -> Star in
                 return star.starMoved(ascension: -24.0, declination: 0.0)
             })

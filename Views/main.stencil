@@ -8,7 +8,7 @@
 <H4> Examples </H4>
 <p><ul>
     {% for link in links %}
-<li> <a href="{{ link.url }}"> {{ link.desc }} </a> </li>
+<li> <a href="{{ link.url }}"> {{ link.desc }} : {{ link.url }} </a> </li>
     {% endfor %}
 </ul></p>
 

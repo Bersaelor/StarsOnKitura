@@ -43,7 +43,7 @@ router.get("/") { request, response, next in
         "links": [
             ["desc": "Nearest Star", "url": "./star?ascension=14.2&declination=19.2"],
             ["desc": "Nearest Stars", "url": "./nearestStars?number=6&ascension=20.5&declination=45.3"],
-            ["desc": "Stars in Area", "url": "./starsAround?ascension=15.2&declination=3.0&radiusX=1.4&radiusY=2&maxMag=4"]
+            ["desc": "Stars in Area", "url": "./starsAround?ascension=15.2&declination=3.0&deltaAsc=1.4&deltaDec=2&maxMag=4"]
         ]
     ]
     try response.render("main.stencil", context: context).end()
@@ -104,12 +104,12 @@ router.get("/starsAround") { request, response, next in
     
     if let ascension = request.queryParameters["ascension"].flatMap({ Float($0) }),
         let declination = request.queryParameters["declination"].flatMap({ Float($0) }),
-        let radiusX = request.queryParameters["radiusX"].flatMap({ Float($0) }),
-        let radiusY = request.queryParameters["radiusY"].flatMap({ Float($0) })
+        let deltaAsc = request.queryParameters["deltaAsc"].flatMap({ Float($0) }),
+        let deltaDec = request.queryParameters["deltaDec"].flatMap({ Float($0) })
     {
         let maxMag = request.queryParameters["maxMag"].flatMap( { Double($0) })
         let stars = StarHelper.stars(from: starTree, around: ascension, declination: declination,
-                                     radiusAs: radiusX, radiusDec: radiusY, maxMag: maxMag)
+                                     deltaAsc: deltaAsc, deltaDec: deltaDec, maxMag: maxMag)
 
         response.send(json: stars.map { $0.dataDictionary } )
     } else {

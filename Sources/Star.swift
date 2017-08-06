@@ -35,21 +35,23 @@ extension Star {
             Log.error("Should have starData for \(self.dbID)")
             return ["dbID": dbID]
         }
+        // so long as Kitura uses SwiftyJson's LclJSONSerialization,
+        // JSON data should not contain Int, or Optionals
         return [
-            "dbID": dbID,
+            "dbID": Int(dbID),
             "right_ascension": right_ascension,
             "declination": declination,
-            "hip_id": data.hip_id as Any,
-            "hd_id": data.hd_id as Any,
-            "hr_id": data.hr_id as Any,
-            "gl_id": data.gl_id as Any,
-            "bayer_flamstedt": data.bayer_flamstedt as Any,
-            "properName": data.properName as Any,
-            "rv": data.rv as Any,
+            "hip_id": data.hip_id.flatMap({ Int($0) }) ?? NSNull(),
+            "hd_id": data.hd_id.flatMap({ Int($0) }) ?? NSNull(),
+            "hr_id": data.hr_id.flatMap({ Int($0) }) ?? NSNull(),
+            "gl_id": data.gl_id.flatMap({ Int($0) }) ?? NSNull(),
+            "bayer_flamstedt": data.bayer_flamstedt ?? NSNull(),
+            "properName": data.properName ?? NSNull(),
+            "rv": data.rv ?? NSNull(),
             "mag": data.mag,
             "absmag": data.absmag,
-            "spectralType": data.spectralType as Any,
-            "colorIndex": data.colorIndex as Any
+            "spectralType": data.spectralType ?? NSNull(),
+            "colorIndex": data.colorIndex ?? NSNull()
         ]
     }
 }
@@ -177,9 +179,10 @@ extension Star: CustomDebugStringConvertible {
     public var debugDescription: String {
         let distanceString = String(describing: starData?.value.distance)
         let magString = String(describing: starData?.value.mag)
-        return "🌠: " + (starData?.value.properName ?? "N.A.") + ", Hd(\(starData?.value.hd_id ?? -1)) + HR(\(starData?.value.hr_id ?? -1))"
-            + "Gliese(\(starData?.value.gl_id ?? "")), BF(\(starData?.value.bayer_flamstedt ?? "")):"
-            + "\(right_ascension), \(declination), \( distanceString ) mag: \(magString)"
+        return "🌠: ".appending(starData?.value.properName ?? "N.A.")
+            .appending(", Hd(\(starData?.value.hd_id ?? -1)) + HR(\(starData?.value.hr_id ?? -1))")
+            .appending("Gliese(\(starData?.value.gl_id ?? "")), BF(\(starData?.value.bayer_flamstedt ?? "")):")
+            .appending("\(right_ascension), \(declination), \( distanceString ) mag: \(magString)")
     }
 }
 
@@ -238,7 +241,9 @@ fileprivate func readNumber<T: HasCFormatterString>(at index: inout Int, stringP
         var scanned: Int32 = -1
         withUnsafeMutablePointer(to: &value, { valuePtr in
             let args: [CVarArg] = [valuePtr]
-            scanned = vsscanf(newCPtr, T.cFormatString, getVaList(args))
+            scanned = withVaList(args, { (vaListPtr) -> Int32 in
+                return vsscanf(newCPtr, T.cFormatString, vaListPtr)
+            })
         })
         return scanned > 0 ? value : nil
     }

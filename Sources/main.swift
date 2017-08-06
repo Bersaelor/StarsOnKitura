@@ -63,7 +63,9 @@ router.get("/star") { request, response, next in
         let declinationString = request.queryParameters["declination"], let declination = Float(declinationString),
         let star = StarHelper.nearestStar(to: ascension, declination: declination, stars: starTree) {
         Log.info(star.debugDescription)
+        Log.info("Json: \(star.dataDictionary)")
         response.send(json: star.dataDictionary)
+//        response.send(json: ["JSONKEY": "RESPONSE"])
     } else {
         response.send("Wrongly formatted ascension or declination query parameters")
     }

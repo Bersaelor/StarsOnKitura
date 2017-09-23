@@ -41,11 +41,11 @@ class StarHelper: NSObject {
         let searchStar = Star(ascension: ascension, declination: declination)
         
         let startNN = Date()
-        var nearestStar = stars.nearest(toElement: searchStar)
+        var nearestStar = stars.nearest(to: searchStar)
         let nearestDistanceSqd = nearestStar?.squaredDistance(to: searchStar) ?? 10.0
         if sqrt(nearestDistanceSqd) > abs(Double(searchStar.right_ascension - 24)) { // point close to or below ascension = 0
             let searchStarModulo = searchStar.starMoved(ascension: 24.0, declination: 0.0)
-            if let leftSideNearest = stars.nearest(toElement: searchStarModulo),
+            if let leftSideNearest = stars.nearest(to: searchStarModulo),
                 leftSideNearest.squaredDistance(to: searchStarModulo) < nearestDistanceSqd {
                 nearestStar = leftSideNearest.starMoved(ascension: -24.0, declination: 0.0)
             }
@@ -59,11 +59,11 @@ class StarHelper: NSObject {
         let searchStar = Star(ascension: ascension, declination: declination)
         
         let startNN = Date()
-        var nearest = stars.nearestK(number, toElement: searchStar)
+        var nearest = stars.nearestK(number, to: searchStar)
         let nearestDistanceSqd = nearest.last?.squaredDistance(to: searchStar) ?? 10.0
         if sqrt(nearestDistanceSqd) > Double(searchStar.right_ascension) { // point close to or below ascension = 0
             let searchStarModulo = searchStar.starMoved(ascension: 24.0, declination: 0.0)
-            let leftSideNearest = stars.nearestK(number, toElement: searchStarModulo)
+            let leftSideNearest = stars.nearestK(number, to: searchStarModulo)
             if leftSideNearest.last?.squaredDistance(to: searchStarModulo) ?? Double.infinity < nearestDistanceSqd {
                 let nearestLeft = leftSideNearest.map { $0.starMoved(ascension: -24.0, declination: 0.0) }
                 nearest.append(contentsOf: nearestLeft)

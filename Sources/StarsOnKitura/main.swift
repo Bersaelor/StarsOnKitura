@@ -14,7 +14,7 @@ HeliumLogger.use()
 
 var starTree: KDTree<Star>?
 let startLoading = Date()
-DispatchQueue.global(qos: .background).async { _ in
+DispatchQueue.global(qos: .background).async {
     Log.info("Loading CSV")
     StarHelper.loadCSVData { stars in
         starTree = stars

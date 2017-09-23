@@ -9,6 +9,7 @@
 import Foundation
 import KDTree
 import LoggerAPI
+import SwiftyHYGDB
 
 class StarHelper: NSObject {
     
@@ -16,34 +17,30 @@ class StarHelper: NSObject {
         return String.getAbsolutePath(for: "./Resources/hygdata_v3.csv")
     }()
 
-    static func loadCSVData(completion: (KDTree<Star>?) -> Void) {
-        var startLoading = Date()
+    static func loadStarTree(named filePath: String, completion: @escaping (KDTree<RadialStar>?) -> Void) {
+        let startLoading = Date()
         
-        guard let fileHandle = fopen(StarHelper.csvFilePath, "r") else {
-            Log.error("Couldn't find hygdata_v3 in bundle for file \(StarHelper.csvFilePath)")
-            completion(nil)
-            return }
-        defer { fclose(fileHandle) }
-        
-        let lines = lineIteratorC(file: fileHandle)
-        let stars = lines.dropFirst().flatMap { linePtr -> Star? in
-            defer { free(linePtr) }
-            return Star(rowPtr :linePtr)
+        DispatchQueue.global(qos: .background).async {
+            guard let stars: [RadialStar] = SwiftyHYGDB.loadCSVData(from: filePath) else {
+                completion(nil)
+                return
+            }
+            Log.debug("Time to load \(stars.count) stars: \(Date().timeIntervalSince(startLoading))s from \(filePath)")
+            let startTreeBuilding = Date()
+            let tree = KDTree(values: stars)
+            Log.debug("Time build tree: \(Date().timeIntervalSince(startTreeBuilding)),"
+                .appending(" complete time: \(Date().timeIntervalSince(startLoading))s"))
+            completion(tree)
         }
-        Log.verbose("Time to load stars: \(Date().timeIntervalSince(startLoading))s")
-        startLoading = Date()
-        let starTree = KDTree(values: stars)
-        Log.verbose("Time to create Tree: \(Date().timeIntervalSince(startLoading))s")
-        completion(starTree)
     }
     
-    static func nearestStar(to ascension: Float, declination: Float, stars: KDTree<Star>) -> Star? {
-        let searchStar = Star(ascension: ascension, declination: declination)
+    static func nearestStar(to ascension: Float, declination: Float, stars: KDTree<RadialStar>) -> RadialStar? {
+        let searchStar = RadialStar(ascension: ascension, declination: declination)
         
         let startNN = Date()
         var nearestStar = stars.nearest(to: searchStar)
         let nearestDistanceSqd = nearestStar?.squaredDistance(to: searchStar) ?? 10.0
-        if sqrt(nearestDistanceSqd) > abs(Double(searchStar.right_ascension - 24)) { // point close to or below ascension = 0
+        if sqrt(nearestDistanceSqd) > abs(Double(searchStar.normalizedAscension - 1)) { // point close to or below ascension = 0
             let searchStarModulo = searchStar.starMoved(ascension: 24.0, declination: 0.0)
             if let leftSideNearest = stars.nearest(to: searchStarModulo),
                 leftSideNearest.squaredDistance(to: searchStarModulo) < nearestDistanceSqd {
@@ -55,13 +52,13 @@ class StarHelper: NSObject {
         return nearestStar
     }
     
-    static func nearest(number: Int, to ascension: Float, declination: Float, from stars: KDTree<Star>) -> [Star] {
-        let searchStar = Star(ascension: ascension, declination: declination)
+    static func nearest(number: Int, to ascension: Float, declination: Float, from stars: KDTree<RadialStar>) -> [RadialStar] {
+        let searchStar = RadialStar(ascension: ascension, declination: declination)
         
         let startNN = Date()
         var nearest = stars.nearestK(number, to: searchStar)
         let nearestDistanceSqd = nearest.last?.squaredDistance(to: searchStar) ?? 10.0
-        if sqrt(nearestDistanceSqd) > Double(searchStar.right_ascension) { // point close to or below ascension = 0
+        if sqrt(nearestDistanceSqd) > Double(searchStar.normalizedAscension) { // point close to or below ascension = 0
             let searchStarModulo = searchStar.starMoved(ascension: 24.0, declination: 0.0)
             let leftSideNearest = stars.nearestK(number, to: searchStarModulo)
             if leftSideNearest.last?.squaredDistance(to: searchStarModulo) ?? Double.infinity < nearestDistanceSqd {
@@ -79,8 +76,8 @@ class StarHelper: NSObject {
     }
     
     
-    static func stars(from stars: KDTree<Star>, around ascension: Float,
-                      declination: Float, deltaAsc: Float, deltaDec: Float, maxMag: Double?) -> [Star]
+    static func stars(from stars: KDTree<RadialStar>, around ascension: Float,
+                      declination: Float, deltaAsc: Float, deltaDec: Float, maxMag: Double?) -> [RadialStar]
     {
         let startRangeSearch = Date()
         
@@ -93,7 +90,7 @@ class StarHelper: NSObject {
             let leftIntervals: [(Double, Double)] = [
                 (Double( 24.0 + ascension - deltaAsc), Double(24.0 + ascension + deltaAsc)),
                 (Double(declination - deltaDec), Double(declination + deltaDec))]
-            starsVisible += stars.elementsIn(leftIntervals).map({ (star: Star) -> Star in
+            starsVisible += stars.elementsIn(leftIntervals).map({ (star: RadialStar) -> RadialStar in
                 return star.starMoved(ascension: -24.0, declination: 0.0)
             })
         }

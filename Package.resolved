@@ -119,6 +119,15 @@
         }
       },
       {
+        "package": "SwiftyHYGDB",
+        "repositoryURL": "https://github.com/Bersaelor/SwiftyHYGDB",
+        "state": {
+          "branch": null,
+          "revision": "42e2bf019d798090321aa8b7dfc0d155882b80b8",
+          "version": "0.5.1"
+        }
+      },
+      {
         "package": "SwiftyJSON",
         "repositoryURL": "https://github.com/IBM-Swift/SwiftyJSON.git",
         "state": {

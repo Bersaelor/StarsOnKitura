@@ -5,21 +5,31 @@ import KDTree
 import Dispatch
 import HeliumLogger
 import LoggerAPI
+import SwiftyHYGDB
 
 // Initialize HeliumLogger
 HeliumLogger.use()
 
 // Mark: Load the Stars!
 // --------------
+App.current.started()
 
-var starTree: KDTree<Star>?
+var starTree: KDTree<RadialStar>?
+var visibleStarTree: KDTree<RadialStar>?
 let startLoading = Date()
 DispatchQueue.global(qos: .background).async {
     Log.info("Loading CSV")
-    StarHelper.loadCSVData { stars in
-        starTree = stars
+
+    StarHelper.loadStarTree(named: String.getAbsolutePath(for: "./Resources/visibleStars.csv")) { stars in
+        visibleStarTree = stars
         
-        Log.info("Finished loading \(stars?.count ?? -1) stars, after \(Date().timeIntervalSince(startLoading))s")
+        Log.info("Finished loading \(stars?.count ?? -1) visible stars, after \(Date().timeIntervalSince(startLoading))s")
+        
+        StarHelper.loadStarTree(named: String.getAbsolutePath(for: "./Resources/allStars.csv")) { stars in
+            starTree = stars
+            
+            Log.info("Finished loading \(stars?.count ?? -1) stars, after \(Date().timeIntervalSince(startLoading))s")
+        }
     }
 }
 
@@ -44,8 +54,9 @@ router.get("/") { request, response, next in
             ["desc": "Nearest Star", "url": "./star?ascension=14.2&declination=19.2"],
             ["desc": "Nearest Stars", "url": "./nearestStars?number=6&ascension=20.5&declination=45.3"],
             ["desc": "Stars in Area", "url": "./starsAround?ascension=15.2&declination=3.0&deltaAsc=1.4&deltaDec=2&maxMag=4"]
-        ]
-    ]
+        ],
+        "app" : App.current.stencilContext
+        ] as [String : Any]
     try response.render("main.stencil", context: context).end()
 }
 

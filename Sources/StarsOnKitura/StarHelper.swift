@@ -81,9 +81,11 @@ class StarHelper: NSObject {
     {
         let startRangeSearch = Date()
         
+        let verticalRange = (Double(RadialStar.normalize(declination: declination - deltaDec)),
+                             Double(RadialStar.normalize(declination: declination + deltaDec)))
         var starsVisible = stars.elementsIn([
-            (Double(ascension - deltaAsc), Double(ascension + deltaAsc)),
-            (Double(declination - deltaDec), Double(declination + deltaDec))])
+            (Double(RadialStar.normalize(rightAscension: ascension - deltaAsc)),
+             Double(RadialStar.normalize(rightAscension: ascension + deltaAsc))), verticalRange])
         
         //add the points on the other side of the y-axis in case part of the screen is below
         if ascension < deltaAsc {

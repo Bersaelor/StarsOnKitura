@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/Bersaelor/KDTree",
         "state": {
           "branch": null,
-          "revision": "50d472f786d124827f80a9396e3df7773abe5686",
-          "version": "1.0.0"
+          "revision": "35f75ce639fbd19b8ef3236f2d7e59e9ed2e5f0f",
+          "version": "1.0.2"
         }
       },
       {
@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/Bersaelor/SwiftyHYGDB",
         "state": {
           "branch": null,
-          "revision": "42e2bf019d798090321aa8b7dfc0d155882b80b8",
-          "version": "0.5.1"
+          "revision": "6b9ca96e727c3f80df0867a6c29484ee482d9c8f",
+          "version": "0.5.2"
         }
       },
       {

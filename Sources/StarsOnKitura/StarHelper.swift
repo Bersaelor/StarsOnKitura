@@ -10,6 +10,7 @@ import Foundation
 import KDTree
 import LoggerAPI
 import SwiftyHYGDB
+import Dispatch
 
 class StarHelper: NSObject {
     

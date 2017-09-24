@@ -78,7 +78,7 @@ class StarHelper: NSObject {
     
     
     static func stars(from stars: KDTree<RadialStar>, around ascension: Float,
-                      declination: Float, deltaAsc: Float, deltaDec: Float, maxMag: Double?) -> [RadialStar]
+                      declination: Float, deltaAsc: Float, deltaDec: Float) -> [RadialStar]
     {
         let startRangeSearch = Date()
         
@@ -97,11 +97,7 @@ class StarHelper: NSObject {
                 return star.starMoved(ascension: -24.0, declination: 0.0)
             })
         }
-        if let maxMag = maxMag {
-            starsVisible = starsVisible.filter { (star) -> Bool in
-                return star.starData?.value.mag ?? Double.infinity < maxMag
-            }
-        }
+
         Log.verbose("Finished RangeSearch with \(starsVisible.count) stars, after \(Date().timeIntervalSince(startRangeSearch))s")
         return starsVisible
     }

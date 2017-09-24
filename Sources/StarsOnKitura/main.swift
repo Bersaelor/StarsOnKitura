@@ -53,7 +53,7 @@ router.get("/") { request, response, next in
         "links": [
             ["desc": "Nearest Star", "url": "./star?ascension=14.2&declination=19.2"],
             ["desc": "Nearest Stars", "url": "./nearestStars?number=6&ascension=20.5&declination=45.3"],
-            ["desc": "Stars in Area", "url": "./starsAround?ascension=15.2&declination=3.0&deltaAsc=1.4&deltaDec=2&maxMag=4"]
+            ["desc": "Stars in Area", "url": "./starsAround?ascension=15.2&declination=3.0&deltaAsc=1.4&deltaDec=2&visible=true"]
         ],
         "app" : App.current.stencilContext
         ] as [String : Any]
@@ -65,18 +65,20 @@ router.get("/star") { request, response, next in
 
     response.headers["Content-Type"] = "text/html; charset=utf-8"
 
-    guard let starTree = starTree else {
+    guard let starTree = starTree, let visibleStarTree = visibleStarTree else {
         response.send("Haven't finished parsing csv data yet, try again later")
         return
     }
-    
+
+    let onlyVisible = request.queryParameters["visible"].flatMap({ $0 == "1" || $0 == "true" }) ?? false
+
     if let ascensionString = request.queryParameters["ascension"], let ascension = Float(ascensionString),
         let declinationString = request.queryParameters["declination"], let declination = Float(declinationString),
-        let star = StarHelper.nearestStar(to: ascension, declination: declination, stars: starTree) {
+        let star = StarHelper.nearestStar(to: ascension, declination: declination,
+                                          stars: onlyVisible ? visibleStarTree : starTree)
+    {
         Log.info(star.debugDescription)
-        Log.info("Json: \(star.dataDictionary)")
         response.send(json: star.dataDictionary)
-//        response.send(json: ["JSONKEY": "RESPONSE"])
     } else {
         response.send("Wrongly formatted ascension or declination query parameters")
     }
@@ -87,7 +89,7 @@ router.get("/nearestStars") { request, response, next in
     
     response.headers["Content-Type"] = "text/html; charset=utf-8"
     
-    guard let starTree = starTree else {
+    guard let starTree = starTree, let visibleStarTree = visibleStarTree else {
         response.send("Haven't finished parsing csv data yet, try again later")
         return
     }
@@ -96,7 +98,9 @@ router.get("/nearestStars") { request, response, next in
         let ascensionString = request.queryParameters["ascension"], let ascension = Float(ascensionString),
         let declinationString = request.queryParameters["declination"], let declination = Float(declinationString)
     {
-        let stars = StarHelper.nearest(number: number, to: ascension, declination: declination, from: starTree)
+        let onlyVisible = request.queryParameters["visible"].flatMap({ $0 == "1" || $0 == "true" }) ?? false
+        let stars = StarHelper.nearest(number: number, to: ascension, declination: declination,
+                                       from: onlyVisible ? visibleStarTree : starTree)
         response.send(json: stars.map { $0.dataDictionary } )
     } else {
         response.send("Wrongly formatted ascension or declination query parameters")
@@ -108,7 +112,7 @@ router.get("/starsAround") { request, response, next in
     
     response.headers["Content-Type"] = "text/html; charset=utf-8"
     
-    guard let starTree = starTree else {
+    guard let starTree = starTree, let visibleStarTree = visibleStarTree else {
         response.send("Haven't finished parsing csv data yet, try again later")
         return
     }
@@ -118,9 +122,10 @@ router.get("/starsAround") { request, response, next in
         let deltaAsc = request.queryParameters["deltaAsc"].flatMap({ Float($0) }),
         let deltaDec = request.queryParameters["deltaDec"].flatMap({ Float($0) })
     {
-        let maxMag = request.queryParameters["maxMag"].flatMap( { Double($0) })
-        let stars = StarHelper.stars(from: starTree, around: ascension, declination: declination,
-                                     deltaAsc: deltaAsc, deltaDec: deltaDec, maxMag: maxMag)
+        let onlyVisible = request.queryParameters["visible"].flatMap({ $0 == "1" || $0 == "true" }) ?? false
+        let stars = StarHelper.stars(from: onlyVisible ? visibleStarTree : starTree,
+                                     around: ascension, declination: declination,
+                                     deltaAsc: deltaAsc, deltaDec: deltaDec)
 
         response.send(json: stars.map { $0.dataDictionary } )
     } else {

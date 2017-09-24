@@ -3,7 +3,7 @@ applications:
   memory: 64M
   instances: 1
   random-route: true
-  disk_quota: 512M
+  disk_quota: 1024M
   command: StarsOnKitura
   buildpack: swift_buildpack
   #health-check-type: http

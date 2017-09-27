@@ -49,7 +49,7 @@ class StarHelper: NSObject {
             }
         }
         
-        Log.verbose("Found nearest star \(String(describing: nearestStar?.dbID)) in \(Date().timeIntervalSince(startNN))s")
+        Log.verbose("Found nearest star \(String(describing: nearestStar)) in \(Date().timeIntervalSince(startNN))s")
         return nearestStar
     }
     

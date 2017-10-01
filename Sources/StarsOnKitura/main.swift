@@ -94,10 +94,16 @@ router.get("/nearestStars") { request, response, next in
         return
     }
     
+    let maxNumber = 500
+    
     if let numberString = request.queryParameters["number"], let number = Int(numberString),
         let ascensionString = request.queryParameters["ascension"], let ascension = Float(ascensionString),
         let declinationString = request.queryParameters["declination"], let declination = Float(declinationString)
     {
+        guard number < maxNumber else {
+            response.send("Requesting more then \(maxNumber) stars isn't supported")
+            return
+        }
         let onlyVisible = request.queryParameters["visible"].flatMap({ $0 == "1" || $0 == "true" }) ?? false
         let stars = StarHelper.nearest(number: number, to: ascension, declination: declination,
                                        from: onlyVisible ? visibleStarTree : starTree)
@@ -117,12 +123,22 @@ router.get("/starsAround") { request, response, next in
         return
     }
     
+    let maxDeltaAsc: Float = 2
+    let maxDeltaDec: Float = 10
+
     if let ascension = request.queryParameters["ascension"].flatMap({ Float($0) }),
         let declination = request.queryParameters["declination"].flatMap({ Float($0) }),
         let deltaAsc = request.queryParameters["deltaAsc"].flatMap({ Float($0) }),
         let deltaDec = request.queryParameters["deltaDec"].flatMap({ Float($0) })
     {
         let onlyVisible = request.queryParameters["visible"].flatMap({ $0 == "1" || $0 == "true" }) ?? false
+        
+        guard onlyVisible || (deltaAsc <= maxDeltaAsc && deltaDec <= maxDeltaDec) else {
+            response.send("When requesting with `visible=false`, i.e. even stars not visible with the naked eye,"
+                + " a maximum of \(maxDeltaAsc)h ascension range or \(maxDeltaDec)° declination range is allowed")
+            return
+        }
+        
         let stars = StarHelper.stars(from: onlyVisible ? visibleStarTree : starTree,
                                      around: ascension, declination: declination,
                                      deltaAsc: deltaAsc, deltaDec: deltaDec)

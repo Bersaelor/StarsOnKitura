@@ -60,9 +60,8 @@
         <footer id="footer">
             <div class="container">
             {% block footer %}
-                <p align="center">
-                    Served with the power of Swift
-                </p>
+                <p align="center"> Served with the power of Swift </p>
+                <p align="center"> Uptime: {{ app.uptime }} </p>
             {% endblock %}
             </div> <!-- /.container -->
             <!-- Bootstrap core JavaScript

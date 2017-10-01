@@ -3,8 +3,9 @@ applications:
   memory: 64M
   instances: 1
   random-route: true
-  disk_quota: 512M
+  disk_quota: 1024M
   command: StarsOnKitura
-  buildpack: swift_buildpack
+  buildpack: https://github.com/IBM-Swift/swift-buildpack#develop
+  command: /home/vcap/app/.build/x86_64-unknown-linux/release/StarsOnKitura
   #health-check-type: http
   #health-check-http-endpoint: /health

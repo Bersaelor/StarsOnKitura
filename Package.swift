@@ -1,13 +1,26 @@
-// swift-tools-version:3.1
+// swift-tools-version:4.0
 
 import PackageDescription
 
 let package = Package(
     name: "StarsOnKitura",
+    products: [
+        .executable(
+            name: "StarsOnKitura",
+            targets: ["StarsOnKitura"]
+        )
+    ],
     dependencies: [
-        .Package(url: "https://github.com/Bersaelor/KDTree", majorVersion: 0, minor: 5),
-        .Package(url: "https://github.com/IBM-Swift/Kitura.git", majorVersion: 1, minor: 7),
-        .Package(url: "https://github.com/IBM-Swift/HeliumLogger.git", majorVersion: 1, minor: 7),
-        .Package(url: "https://github.com/IBM-Swift/Kitura-StencilTemplateEngine.git", majorVersion: 1, minor: 8)
+        .package(url: "https://github.com/Bersaelor/KDTree", .upToNextMinor(from: "1.0.2")),
+        .package(url: "https://github.com/Bersaelor/SwiftyHYGDB", .upToNextMinor(from: "0.6.0")),
+        .package(url: "https://github.com/IBM-Swift/Kitura.git", .upToNextMinor(from: "1.7.8")),
+        .package(url: "https://github.com/IBM-Swift/HeliumLogger.git", .upToNextMinor(from: "1.7.1")),
+        .package(url: "https://github.com/IBM-Swift/Kitura-StencilTemplateEngine.git", .upToNextMinor(from: "1.8.3"))
+    ],
+    targets: [
+        .target(
+            name: "StarsOnKitura",
+            dependencies: ["KDTree", "Kitura", "KituraStencil", "HeliumLogger", "SwiftyHYGDB"]
+        )
     ]
 )
